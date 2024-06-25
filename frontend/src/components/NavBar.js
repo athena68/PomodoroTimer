@@ -1,20 +1,45 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import "./NavBar.css";
 
 const NavBar = () => {
+  const location = useLocation();
+
+  const getTitle = () => {
+    switch (location.pathname) {
+      case "/":
+        return "Pomodoro App";
+      case "/settings":
+        return "Settings";
+      case "/statistics":
+        return "Statistics";
+      default:
+        return "Pomodoro App";
+    }
+  };
+
   return (
-    <nav>
-      <ul>
-        <li>
-          <Link to="/">Home</Link>
-        </li>
-        <li>
-          <Link to="/settings">Settings</Link>
-        </li>
-        <li>
-          <Link to="/statistics">Statistics</Link>
-        </li>
-      </ul>
+    <nav className="nav">
+      <div className="nav-content">
+        <h1 className="nav-title">{getTitle()}</h1>
+        <ul className="nav-list">
+          <li className="nav-item">
+            <Link to="/" className="nav-link">
+              Home
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/settings" className="nav-link">
+              Settings
+            </Link>
+          </li>
+          <li className="nav-item">
+            <Link to="/statistics" className="nav-link">
+              Statistics
+            </Link>
+          </li>
+        </ul>
+      </div>
     </nav>
   );
 };

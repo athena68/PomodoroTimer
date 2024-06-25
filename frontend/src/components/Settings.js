@@ -13,7 +13,11 @@ const Settings = () => {
   useEffect(() => {
     axios
       .get("http://localhost:5000/settings")
-      .then((response) => setSettings(response.data))
+      .then((response) => {
+        if (response.data) {
+          setSettings(response.data);
+        }
+      })
       .catch((error) => console.log(error));
   }, []);
 
@@ -38,51 +42,56 @@ const Settings = () => {
   };
 
   return (
-    <form className="settings-form" onSubmit={handleSubmit}>
-      <label>
-        Pomodoro Duration:
-        <input
-          type="number"
-          name="pomodoroDuration"
-          value={settings.pomodoroDuration}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Short Break Duration:
-        <input
-          type="number"
-          name="shortBreakDuration"
-          value={settings.shortBreakDuration}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Long Break Duration:
-        <input
-          type="number"
-          name="longBreakDuration"
-          value={settings.longBreakDuration}
-          onChange={handleChange}
-        />
-      </label>
-      <label>
-        Notifications:
-        <input
-          type="checkbox"
-          checked={settings.notificationsEnabled}
-          onChange={handleToggle}
-        />
-      </label>
-      <label>
-        Theme:
-        <select name="theme" value={settings.theme} onChange={handleChange}>
-          <option value="Light">Light</option>
-          <option value="Dark">Dark</option>
-        </select>
-      </label>
-      <button type="submit">Save</button>
-    </form>
+    <div className="container">
+      <main className="main-content">
+        <form className="settings-form" onSubmit={handleSubmit}>
+          <label>
+            Pomodoro Duration:
+            <input
+              type="number"
+              name="pomodoroDuration"
+              value={settings.pomodoroDuration}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Short Break Duration:
+            <input
+              type="number"
+              name="shortBreakDuration"
+              value={settings.shortBreakDuration}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Long Break Duration:
+            <input
+              type="number"
+              name="longBreakDuration"
+              value={settings.longBreakDuration}
+              onChange={handleChange}
+            />
+          </label>
+          <label>
+            Notifications:
+            <input
+              type="checkbox"
+              name="notificationsEnabled"
+              checked={settings.notificationsEnabled}
+              onChange={handleToggle}
+            />
+          </label>
+          <label>
+            Theme:
+            <select name="theme" value={settings.theme} onChange={handleChange}>
+              <option value="Light">Light</option>
+              <option value="Dark">Dark</option>
+            </select>
+          </label>
+          <button type="submit">Save</button>
+        </form>
+      </main>
+    </div>
   );
 };
 
